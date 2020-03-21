@@ -17,3 +17,10 @@ class TestFifo(TestCase):
         self.fifo.insert("toto2")
         assert len(self.fifo) == 2
 
+    def test_pop(self):
+        to_insert = "TOTO"
+        self.fifo.insert(to_insert)
+        o = self.fifo.pop()
+
+        assert o == to_insert
+
