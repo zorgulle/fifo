@@ -1,40 +1,26 @@
 from fifo import Fifo
-from unittest import TestCase
+import pytest
 
 
-class TestFifo(TestCase):
-    def setUp(self) -> None:
-        self.fifo = Fifo()
+@pytest.fixture()
+def fifo() -> Fifo:
+    return Fifo()
 
-    def test_instance(self) -> None:
-        assert self.fifo is not None
 
-    def test_insert_string(self) -> None:
-        self.fifo.insert("toto")
-        assert len(self.fifo) == 1
+def test_instance(fifo) -> None:
+    assert fifo is not None
 
-    def test_insert_2_string(self) -> None:
-        self.fifo.insert("toto")
-        self.fifo.insert("toto2")
-        assert len(self.fifo) == 2
 
-    def test_pop(self):
-        to_insert = "TOTO"
-        self.fifo.insert(to_insert)
-        o = self.fifo.pop()
+@pytest.mark.parametrize(argnames="to_insert", argvalues=[1, [2, 3], {1, 2}, {"toto": [1, 2]}])
+def test_insert(fifo, to_insert) -> None:
+    fifo.insert(to_insert)
+    assert len(fifo) == 1
 
-        assert o == to_insert
-        assert len(self.fifo) == 0
 
-    def test_pop_order(self):
-        to_insert = "TOTO"
-        self.fifo.insert(to_insert)
-        to_insert_again = "TITI"
-        self.fifo.insert(to_insert_again)
+@pytest.mark.parametrize(argnames="to_insert", argvalues=[1, [2, 3], {1, 2}, {"toto": [1, 2]}])
+def test_pop(fifo, to_insert) -> None:
+    fifo.insert(to_insert)
+    o = fifo.pop()
 
-        pop1 = self.fifo.pop()
-        assert pop1 == to_insert
-
-        pop2 = self.fifo.pop()
-        assert pop2 == to_insert_again
-
+    assert o == to_insert
+    assert len(fifo) == 0
