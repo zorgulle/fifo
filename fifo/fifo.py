@@ -1,0 +1,2 @@
+class Fifo:
+    pass
