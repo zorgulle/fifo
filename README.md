@@ -1,1 +1,1 @@
-fifo
+[![Build Status](https://travis-ci.com/zorgulle/fifo.svg?branch=master)](https://travis-ci.com/zorgulle/fifo)
