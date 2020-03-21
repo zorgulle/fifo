@@ -1,6 +1,7 @@
 from fifo import Fifo
 from unittest import TestCase
 
+
 class TestFifo(TestCase):
     def setUp(self) -> None:
         self.fifo = Fifo()
@@ -24,4 +25,16 @@ class TestFifo(TestCase):
 
         assert o == to_insert
         assert len(self.fifo) == 0
+
+    def test_pop_order(self):
+        to_insert = "TOTO"
+        self.fifo.insert(to_insert)
+        to_insert_again = "TITI"
+        self.fifo.insert(to_insert_again)
+
+        pop1 = self.fifo.pop()
+        assert pop1 == to_insert
+
+        pop2 = self.fifo.pop()
+        assert pop2 == to_insert_again
 
