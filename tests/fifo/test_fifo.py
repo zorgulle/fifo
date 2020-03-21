@@ -23,4 +23,5 @@ class TestFifo(TestCase):
         o = self.fifo.pop()
 
         assert o == to_insert
+        assert len(self.fifo) == 0
 
